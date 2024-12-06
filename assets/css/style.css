@@ -5,7 +5,6 @@ header {
     font-size: 1.5em;
 }
 
-/* Assure que la page prend toujours toute la hauteur de l'écran */
 html, body {
     height: 100%;
     margin: 0;
@@ -16,35 +15,46 @@ html, body {
     background-color: black;
 }
 
-/* Conteneur principal occupe tout l'espace disponible */
 main.container {
-    flex: 1; /* Permet à la section principale d'occuper tout l'espace restant */
+    flex: 1; 
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
 
-/* Footer sticky */
 footer {
     background-color: black;
     color: white;
     text-align: center;
     padding: 10px;
-    position: sticky; /* Le footer reste en bas */
-    bottom: 0; /* Collé au bas de la fenêtre */
-    z-index: 10; /* S'assurer qu'il est au-dessus si nécessaire */
-    width: 100%; /* Prend toute la largeur */
+    position: sticky; 
+    bottom: 0; 
+    z-index: 10;
+    width: 100%; 
 }
 
 h1, h2 {
     margin: 0;
 }
 
-/* Conteneur principal */
-.container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+.floating-number {
+    position: fixed;
+    color: #4CAF50;
+    font-weight: bold;
+    pointer-events: none;
+    animation: float-up 1s ease-out;
+    font-size: 20px;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
 }
 
 #objectives {
@@ -56,7 +66,38 @@ h1, h2 {
 }
 
 .objective {
-    margin-bottom: 20px;
+    transition: all 1s ease-out;
+}
+
+.objective.completed {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Previous styles remain the same */
+.floating-number {
+    position: fixed;
+    color: #4CAF50;
+    font-weight: bold;
+    pointer-events: none;
+    animation: float-up 1s ease-out;
+    font-size: 20px;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.clicked {
+    transform: scale(0.95);
+    transition: transform 0.1s;
 }
 
 label {
@@ -81,14 +122,13 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
-    background-color: #1eff00;
+    background-color: #001d66;
 }
 
 progress::-moz-progress-bar {
-    background-color: #1eff00;
+    background-color: #001d66;
 }
 
-/* Zone principale */
 #main {
     flex: 2;
     padding: 20px;
@@ -149,7 +189,26 @@ progress::-moz-progress-bar {
     border-color: #888;
 }
 
-/* Mobile responsiveness */
+.floating-number {
+    position: fixed;
+    color: #4CAF50;
+    font-weight: bold;
+    pointer-events: none;
+    animation: float-up 1s ease-out;
+    font-size: 20px;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
