@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Space Clicker</h1>
+    </header>
+    <main class="container">
+        <section id="objectives">
+            <h2>Objectifs</h2>
+            <div class="objective">
+                <label for="progress1">Atteindre 50 points</label>
+                <progress id="progress1" value="0" max="50"></progress>
+            </div>
+            <div class="objective">
+                <label for="progress2">Atteindre 100 points</label>
+                <progress id="progress2" value="0" max="100"></progress>
+            </div>
+            <div class="objective">
+                <label for="progress3">Acheter 1 Auto-Clicker</label>
+                <progress id="progress3" value="0" max="1"></progress>
+            </div>
+        </section>        
+        
+        <section id="main">
+            <img id="cookie" src="assets/img/cookie1.png" alt="Cookie">
+            <div id="score">Mineraux : 0</div>
+        </section>
+
+        <section id="shop">
+            <h2>Magasin</h2>
+            <div class="shop-item" id="autoClicker1" data-name="Petit Clicker" data-base-cost="10" data-effect="1" data-level="0">
+                Petit Clicker (10 points) - Ajoute 1 point/seconde
+            </div>
+            <div class="shop-item" id="autoClicker2" data-name="Super Clicker" data-base-cost="50" data-effect="5" data-level="0">
+                Super Clicker (50 points) - Ajoute 5 points/seconde
+            </div>
+            <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
+                Mega Clicker (100 points) - Ajoute 20 points/seconde
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 - Cookie Clicker</p>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
