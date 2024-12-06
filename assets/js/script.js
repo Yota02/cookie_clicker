@@ -1,20 +1,32 @@
-let objectif1Max = 50;   
-let objectif2Max = 100;  
-let objectif3Max = 1;    
+// Constants for objectives and unlocks
+const objectif1Max = 50;   
+const objectif2Max = 100;  
+const objectif3Max = 1;    
 
+// Game state variables
 let points = 0;          
 let maxPointsAtteints = 0; 
 let autoClickersBought = 0; 
 let maxAutoClickers = 0; 
 let clickMultiplier = 1;
 
+// Unlock thresholds
+const UNLOCK_THRESHOLDS = {
+    'section1': 100,    
+    'section2': 1000,   
+    'section3': 5000    
+};
+
+// DOM Elements
 const scoreDisplay = document.getElementById('score');
 const cookie = document.getElementById('cookie');
 const shopItems = document.querySelectorAll('.shop-item');
+const shopSections = document.querySelectorAll('.shop-section');
 const progress1 = document.getElementById('progress1');
 const progress2 = document.getElementById('progress2');
 const progress3 = document.getElementById('progress3');
 
+// Create floating number animation
 function createFloatingNumber(x, y, text) {
     const floatingNum = document.createElement('div');
     floatingNum.className = 'floating-number';
@@ -26,19 +38,52 @@ function createFloatingNumber(x, y, text) {
     setTimeout(() => floatingNum.remove(), 1000);
 }
 
-function updateScore() {
-    scoreDisplay.textContent = `Mineraux : ${points}`;
-    updateShop();
-    updateObjectives();
+// Update shop sections visibility based on points
+function updateShopSections() {
+    const shopSections = document.querySelectorAll('.shop-section');
+    
+    shopSections.forEach(section => {
+        const requiredPoints = UNLOCK_THRESHOLDS[section.id];
+        const isUnlocked = maxPointsAtteints >= requiredPoints;
+        
+        // Mise à jour visuelle de la section
+        section.classList.toggle('locked', !isUnlocked);
+        
+        // Mise à jour du message de déverrouillage
+        const lockMessage = section.querySelector('.lock-message');
+        if (lockMessage) {
+            if (isUnlocked) {
+                lockMessage.textContent = 'Déverrouillé !';
+                lockMessage.style.color = '#4CAF50';
+                
+                // Planifie la disparition après 5 secondes
+                setTimeout(() => {
+                    lockMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                lockMessage.textContent = `Se déverrouille à ${requiredPoints} points (${maxPointsAtteints}/${requiredPoints})`;
+                lockMessage.style.display = 'block'; // Réaffiche si nécessaire
+            }
+        }
+    });
 }
 
+
+// Update shop items status and costs
 function updateShop() {
     shopItems.forEach(item => {
         const baseCost = parseInt(item.getAttribute('data-base-cost'));
         const level = parseInt(item.getAttribute('data-level'));
         const cost = Math.ceil(baseCost * Math.pow(1.15, level));
         const name = item.getAttribute('data-name');
+        
+        // Vérifie si l'élément est dans une section déverrouillée
+        const parentSection = item.closest('.shop-section');
+        const sectionUnlocked = parentSection ? 
+            maxPointsAtteints >= UNLOCK_THRESHOLDS[parentSection.id] : 
+            true;
 
+        // Mise à jour du texte
         if (item.id === 'clickUpgrade') {
             const currentMultiplier = level + 1;
             item.textContent = `${name} (${cost} points) - Ajoute +${currentMultiplier} par click`;
@@ -47,17 +92,28 @@ function updateShop() {
             item.textContent = `${name} (${cost} points) - Ajoute ${effect} points/seconde`;
         }
 
+        // Mise à jour de l'état visuel
         item.setAttribute('data-cost', cost);
-        item.style.pointerEvents = points >= cost ? 'auto' : 'none';
-        item.disabled = points < cost;
+        const canAfford = points >= cost;
+        
+        // Style pour les items non achetables
+        item.style.opacity = canAfford ? '1' : '0.5';
+        item.style.filter = canAfford ? 'none' : 'grayscale(100%)';
+        item.style.cursor = (sectionUnlocked && canAfford) ? 'pointer' : 'not-allowed';
+        item.disabled = !sectionUnlocked || !canAfford;
+
+        // Ajout d'une classe pour le style visuel
+        item.classList.toggle('disabled', !canAfford);
     });
 }
 
+// Cookie click animation
 function shrinkCookie() {
     cookie.classList.add('clicked');
     setTimeout(() => cookie.classList.remove('clicked'), 100);
 }
 
+// Update objectives progress
 function updateObjectives() {
     const objectives = [
         { element: progress1, maxValue: objectif1Max },
@@ -77,6 +133,14 @@ function updateObjectives() {
             }, 1000);
         }
     });
+}
+
+function updateScore() {
+    scoreDisplay.textContent = `Mineraux : ${points}`;
+    maxPointsAtteints = Math.max(maxPointsAtteints, points);
+    updateShop();
+    updateObjectives();
+    updateShopSections();
 }
 
 cookie.addEventListener('click', (e) => {
@@ -105,7 +169,13 @@ shopItems.forEach(item => {
         item.addEventListener('click', () => {
             const cost = parseInt(item.getAttribute('data-cost'));
             const level = parseInt(item.getAttribute('data-level'));
-            if (points >= cost) {
+
+            const parentSection = item.closest('.shop-section');
+            const sectionUnlocked = parentSection ? 
+                maxPointsAtteints >= UNLOCK_THRESHOLDS[parentSection.id] : 
+                true;
+            
+            if (sectionUnlocked && points >= cost) {
                 points -= cost;
                 item.setAttribute('data-level', level + 1);
                 autoClickersBought++;

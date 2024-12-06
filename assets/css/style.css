@@ -37,30 +37,10 @@ h1, h2 {
     margin: 0;
 }
 
-.floating-number {
-    position: fixed;
-    color: #4CAF50;
-    font-weight: bold;
-    pointer-events: none;
-    animation: float-up 1s ease-out;
-    font-size: 20px;
-}
-
-@keyframes float-up {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-}
-
 #objectives {
     flex: 1;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: white;
     border-right: 2px solid #ddd;
     text-align: left;
 }
@@ -69,15 +49,18 @@ h1, h2 {
     transition: all 1s ease-out;
 }
 
+.objective img{
+    width: 100%;
+}
+
 .objective.completed {
     transform: translateX(100%);
     opacity: 0;
 }
 
-/* Previous styles remain the same */
 .floating-number {
     position: fixed;
-    color: #4CAF50;
+    color: white;
     font-weight: bold;
     pointer-events: none;
     animation: float-up 1s ease-out;
@@ -152,7 +135,6 @@ progress::-moz-progress-bar {
     margin-top: 20px;
 }
 
-/* Zone Magasin */
 #shop {
     flex: 1;
     padding: 20px;
@@ -189,24 +171,51 @@ progress::-moz-progress-bar {
     border-color: #888;
 }
 
-.floating-number {
-    position: fixed;
-    color: #4CAF50;
-    font-weight: bold;
-    pointer-events: none;
-    animation: float-up 1s ease-out;
-    font-size: 20px;
+.shop-item.disabled {
+    background-color: #666;
+    color: #999;
+    transition: all 0.3s ease;
 }
 
-@keyframes float-up {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
+.shop-section.locked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.shop-item:not(.disabled):hover {
+    transform: scale(1.02);
+    background-color: #001f7a;
+}
+
+.shop-section {
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+}
+
+.shop-section.locked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
+.shop-section h3 {
+    color: #00113d;
+    margin-bottom: 10px;
+}
+
+.lock-message {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.shop-section.locked .shop-item {
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 @media (max-width: 768px) {

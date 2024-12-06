@@ -11,20 +11,17 @@
         <h1>Space Clicker</h1>
     </header>
     <main class="container">
+
         <section id="objectives">
             <h2>Objectifs</h2>
+
             <div class="objective">
-                <label for="progress1">Atteindre 50 points</label>
-                <progress id="progress1" value="0" max="50"></progress>
+                <img src="assets/img/vaiseau/enterprise/enterprise1.png" alt="">
+                <label for="progress1">Construction</label>
+                <progress id="progress1" value="0" max="1000"></progress>
+                
             </div>
-            <div class="objective">
-                <label for="progress2">Atteindre 100 points</label>
-                <progress id="progress2" value="0" max="100"></progress>
-            </div>
-            <div class="objective">
-                <label for="progress3">Acheter 1 Auto-Clicker</label>
-                <progress id="progress3" value="0" max="1"></progress>
-            </div>
+
         </section>        
         
         <section id="main">
@@ -34,32 +31,42 @@
 
         <section id="shop">
             <h2>Magasin</h2>
-            <div class="shop-item" id="clickUpgrade" data-name="Amélioration Click" data-base-cost="30" data-level="0">
-                Amélioration Click (30 points) - Ajoute +1 par click
+
+            <div id="section1" class="shop-section">
+                <h3>Améliorations des click</h3>
+                <div class="shop-item" id="clickUpgrade" data-name="Amélioration Click" data-base-cost="30" data-level="0">
+                    Amélioration Click (30 points) - Ajoute +1 par click
+                </div>
+                <div class="shop-item" id="autoClicker1" data-name="Petit Clicker" data-base-cost="10" data-effect="1" data-level="0">
+                    Petit Clicker (10 points) - Ajoute 1 point/seconde
+                </div>
+                <p class="lock-message"></p>
             </div>
-            <div class="shop-item" id="autoClicker1" data-name="Petit Clicker" data-base-cost="10" data-effect="1" data-level="0">
-                Petit Clicker (10 points) - Ajoute 1 point/seconde
+    
+            <div id="section2" class="shop-section locked">
+                <h3>Améliorations Avancées</h3>
+                <div class="shop-item" id="autoClicker2" data-name="Super Clicker" data-base-cost="50" data-effect="5" data-level="0">
+                    Super Clicker (50 points) - Ajoute 5 points/seconde
+                </div>
+                <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
+                    Mega Clicker (100 points) - Ajoute 20 points/seconde
+                </div>
+                <p class="lock-message">Se déverrouille à 100 points</p>
             </div>
-            <div class="shop-item" id="autoClicker2" data-name="Super Clicker" data-base-cost="50" data-effect="5" data-level="0">
-                Super Clicker (50 points) - Ajoute 5 points/seconde
-            </div>
-            <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
-                Mega Clicker (100 points) - Ajoute 20 points/seconde
-            </div>
-            <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
-                Mega Clicker (100 points) - Ajoute 20 points/seconde
-            </div>
-            <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
-                Mega Clicker (100 points) - Ajoute 20 points/seconde
-            </div>
-            <div class="shop-item" id="autoClicker3" data-name="Mega Clicker" data-base-cost="100" data-effect="20" data-level="0">
-                Mega Clicker (100 points) - Ajoute 20 points/seconde
+    
+            <div id="section3" class="shop-section locked">
+                <h3>Améliorations Ultimes</h3>
+                <div class="shop-item" id="autoClicker4" data-name="Ultra Clicker" data-base-cost="500" data-effect="50" data-level="0">
+                    Ultra Clicker (500 points) - Ajoute 50 points/seconde
+                </div>
+                <div class="shop-item" id="autoClicker5" data-name="Ultimate Clicker" data-base-cost="1000" data-effect="100" data-level="0">
+                    Ultimate Clicker (1000 points) - Ajoute 100 points/seconde
+                </div>
+                <p class="lock-message">Se déverrouille à 1000 points</p>
             </div>
         </section>
+
     </main>
-    <footer>
-        <p>&copy; 2024 - Cookie Clicker</p>
-    </footer>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
