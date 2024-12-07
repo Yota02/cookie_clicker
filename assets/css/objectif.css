@@ -1,0 +1,21 @@
+
+#objectives {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    border-right: 2px solid #ddd;
+    text-align: left;
+}
+
+.objective {
+    transition: all 1s ease-out;
+}
+
+.objective img{
+    width: 100%;
+}
+
+.objective.completed {
+    transform: translateX(100%);
+    opacity: 0;
+}
